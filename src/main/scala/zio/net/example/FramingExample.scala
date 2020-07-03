@@ -27,6 +27,18 @@ test
     stream
       .foreach(chunk => console.putStrLn(chunk.mkString("[", "", "]")))
       .as(0)
+
+    val stream3 = Stream(
+      Chunk("aaa\nb"),
+      Chunk("bb\nccc\nddd\nlong"),
+      Chunk(" line"),
+      Chunk("\nend")
+    )
+    stream3
+      .aggregate(Sink.splitLinesChunk)
+      .foreach(chunk => console.putStrLn(chunk.mkString("[", "", "]")))
+      .as(0)
+
   }
 
 }
